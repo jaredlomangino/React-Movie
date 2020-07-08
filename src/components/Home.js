@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   API_URL,
   API_KEY,
@@ -7,13 +7,15 @@ import {
   IMAGE_BASE_URL,
 } from "../config";
 
+// import Components
 import HeroImage from "./elements/HeroImage";
-import Grid from "./elements/Grid";
-import LoadMoreBtn from "./elements/LoadMoreBtn";
-import MovieThumb from "./elements/MovieThumb";
 import SearchBar from "./elements/SearchBar";
+import Grid from "./elements/Grid";
+import MovieThumb from "./elements/MovieThumb";
+import LoadMoreBtn from "./elements/LoadMoreBtn";
 import Spinner from "./elements/Spinner";
 
+// Custom Hook
 import { useHomeFetch } from "./hooks/useHomeFetch";
 
 import NoImage from "./images/no_image.jpg";
@@ -33,7 +35,7 @@ const Home = () => {
     const searchEndpoint = `${API_URL}search/movie?api_key=${API_KEY}&query=${searchTerm}&page=${
       currentPage + 1
     }`;
-    const popularEndpoint = `${API_URL}movie/popular?api_key=${API_KEY}$page=${
+    const popularEndpoint = `${API_URL}movie/popular?api_key=${API_KEY}&page=${
       currentPage + 1
     }`;
 
@@ -42,6 +44,7 @@ const Home = () => {
     fetchMovies(endpoint);
   };
 
+  if (error) return <div>Something went wrong ...</div>;
   if (!movies[0]) return <Spinner />;
 
   return (
